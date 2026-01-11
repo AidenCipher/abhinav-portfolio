@@ -1,0 +1,54 @@
+═══════════════════════════════════════════════════════════
+  ERROR FOUND: Missing framer-motion dependency
+═══════════════════════════════════════════════════════════
+
+The website is not working because framer-motion is not installed.
+
+ERROR: Module not found: Can't resolve 'framer-motion'
+
+═══════════════════════════════════════════════════════════
+  QUICK FIX (Run this in your terminal)
+═══════════════════════════════════════════════════════════
+
+1. Open Terminal
+2. Navigate to project folder:
+   cd /Users/abhinavrotti/Websites/abhinav-rotti-portfolio
+
+3. Install dependencies:
+   npm install
+
+4. Wait for installation to complete
+
+5. Start the development server:
+   npm run dev
+
+6. Open browser: http://localhost:3000
+
+═══════════════════════════════════════════════════════════
+  If npm install fails with permission errors
+═══════════════════════════════════════════════════════════
+
+Try these solutions:
+
+Option 1: Use npm without sudo
+  npm install
+
+Option 2: Fix npm permissions
+  npm config set prefix ~/.npm-global
+  export PATH=~/.npm-global/bin:$PATH
+  npm install
+
+Option 3: Clear npm cache and try again
+  npm cache clean --force
+  npm install
+
+═══════════════════════════════════════════════════════════
+  Verification
+═══════════════════════════════════════════════════════════
+
+After running npm install, verify installation:
+  ls node_modules/framer-motion
+
+If the directory exists, framer-motion is installed correctly.
+
+═══════════════════════════════════════════════════════════
