@@ -13,7 +13,8 @@ export default function Navigation() {
   ]
 
   return (
-    <nav className="border-b border-gray-200" aria-label="Main navigation">
+    // UPDATED LINE: Added sticky, top-0, z-50, and bg-background
+    <nav className="sticky top-0 z-50 bg-background border-b border-gray-200" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-foreground hover:opacity-70 transition-opacity">

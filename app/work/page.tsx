@@ -1,20 +1,11 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
-import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { workExperience } from '@/lib/work'
 import AnimatedSection from '@/components/AnimatedSection'
 
-export const metadata: Metadata = {
-  title: 'Work',
-  description: 'Case studies demonstrating strategic thinking and systematic execution',
-}
-
 export default function Work() {
-  const workImages = [
-    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
-  ]
-
   return (
     <div className="content-width py-20 md:py-32">
       <AnimatedSection>
@@ -28,10 +19,14 @@ export default function Work() {
         </section>
       </AnimatedSection>
 
-      <section className="space-y-20">
+      <section className="space-y-12">
         {workExperience.map((experience, expIndex) => (
           <AnimatedSection key={expIndex} delay={expIndex * 0.15}>
-            <article className="space-y-12 border-t border-gray-200 pt-16 first:border-t-0 first:pt-0">
+            <motion.article 
+              whileHover={{ y: -10 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="space-y-12 border-t border-gray-200 pt-12 pb-8 first:border-t-0 first:pt-0 p-4 md:p-8 rounded-2xl hover:bg-gray-50 transition-colors"
+            >
               {/* Company Header */}
               <div className="space-y-4">
                 <div>
@@ -76,7 +71,7 @@ export default function Work() {
                   </div>
                 ))}
               </div>
-            </article>
+            </motion.article>
           </AnimatedSection>
         ))}
       </section>

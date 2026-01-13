@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import profilePic from './profile.jpeg' // Ensure this matches your file path/name
 import AnimatedSection from '@/components/AnimatedSection'
+import ServiceCard from '@/components/ServiceCard' // <--- Import the new component
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -14,34 +16,24 @@ export default function Home() {
       {/* Hero Section */}
       <AnimatedSection>
         <section className="mb-24 grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Column: Text */}
           <div className="space-y-6">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-tight text-foreground">
               Hi, I'm Abhinav
             </h1>
             <div className="space-y-4 text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-tight">
-              <h2 className="font-light">
-                I am here to help your business
-              </h2>
-              <h2 className="font-light">
-                increase operational efficiency
-              </h2>
-              <h2 className="font-light">
-                deliver strategic outcomes
-              </h2>
-              <h2 className="font-light">
-                optimize complex systems
-              </h2>
+              <h2 className="font-light">I am here to help your business</h2>
+              <h2 className="font-light">increase operational efficiency</h2>
+              <h2 className="font-light">deliver strategic outcomes</h2>
+              <h2 className="font-light">optimize complex systems</h2>
             </div>
           </div>
 
-          {/* Right Column: Image */}
-          <div className="relative w-full aspect-square md:aspect-[1/1] rounded-2xl overflow-hidden bg-gray-100">
+          <div className="relative w-full aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
             <Image 
               src="/images/profile.jpeg"
               alt="Abhinav Rotti"
               fill
-              className="object-cover"
+              className="object-cover object-center" 
               priority
             />
           </div>
@@ -64,53 +56,29 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-light text-foreground">What I can provide</h2>
           
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <span className="text-4xl font-light text-accent">01</span>
-                <div>
-                  <h3 className="text-xl font-medium text-foreground mb-2">Project Management</h3>
-                  <p className="text-foreground leading-relaxed">
-                    Managing cross-functional projects, coordinating with C-Suite executives and international clients. Setting goals, KPIs, and timelines for strategy implementation.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ServiceCard 
+              number="01"
+              title="Project Management"
+              description="Managing cross-functional projects, coordinating with C-Suite executives and international clients. Setting goals, KPIs, and timelines for strategy implementation."
+            />
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <span className="text-4xl font-light text-accent">02</span>
-                <div>
-                  <h3 className="text-xl font-medium text-foreground mb-2">Operations Optimization</h3>
-                  <p className="text-foreground leading-relaxed">
-                    Optimizing processes, improving efficiency, and eliminating bottlenecks. Analysing portfolios, conducting audits, and implementing systematic improvements.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ServiceCard 
+              number="02"
+              title="Operations Optimization"
+              description="Optimizing processes, improving efficiency, and eliminating bottlenecks. Analysing portfolios, conducting audits, and implementing systematic improvements."
+            />
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <span className="text-4xl font-light text-accent">03</span>
-                <div>
-                  <h3 className="text-xl font-medium text-foreground mb-2">Strategic Execution</h3>
-                  <p className="text-foreground leading-relaxed">
-                    Turning strategy into reality. Working closely with teams to ensure campaigns are set up with goals in mind, analysing results, and suggesting optimisations.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ServiceCard 
+              number="03"
+              title="Strategic Execution"
+              description="Turning strategy into reality. Working closely with teams to ensure campaigns are set up with goals in mind, analysing results, and suggesting optimisations."
+            />
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <span className="text-4xl font-light text-accent">04</span>
-                <div>
-                  <h3 className="text-xl font-medium text-foreground mb-2">Consultancy</h3>
-                  <p className="text-foreground leading-relaxed">
-                    Training teams, finding the right solutions for your needs. Flexible attention based on your requirements, providing expertise when you need it.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <ServiceCard 
+              number="04"
+              title="Consultancy"
+              description="Training teams, finding the right solutions for your needs. Flexible attention based on your requirements, providing expertise when you need it."
+            />
           </div>
         </section>
       </AnimatedSection>
