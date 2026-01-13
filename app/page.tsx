@@ -36,9 +36,9 @@ export default function Home() {
           </div>
 
           {/* Right Column: Image */}
-          <div className="relative w-full aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+          <div className="relative w-full aspect-square md:aspect-[1/1] rounded-2xl overflow-hidden bg-gray-100">
             <Image 
-              src="/public/images/profile.jpeg"
+              src="/images/profile.jpeg"
               alt="Abhinav Rotti"
               fill
               className="object-cover"
