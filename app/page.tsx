@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import AnimatedSection from '@/components/AnimatedSection'
 
 export const metadata: Metadata = {
@@ -12,25 +13,37 @@ export default function Home() {
     <div className="content-width py-20 md:py-32">
       {/* Hero Section */}
       <AnimatedSection>
-        <section className="space-y-8 mb-24">
+        <section className="mb-24 grid md:grid-cols-2 gap-12 items-center">
+          {/* Left Column: Text */}
           <div className="space-y-6">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-tight text-foreground">
               Hi, I'm Abhinav
             </h1>
             <div className="space-y-4 text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-tight">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light">
+              <h2 className="font-light">
                 I am here to help your business
               </h2>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light">
+              <h2 className="font-light">
                 increase operational efficiency
               </h2>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light">
+              <h2 className="font-light">
                 deliver strategic outcomes
               </h2>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light">
+              <h2 className="font-light">
                 optimize complex systems
               </h2>
             </div>
+          </div>
+
+          {/* Right Column: Image */}
+          <div className="relative w-full aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+            <Image 
+              src="/public/images/profile.jpeg"
+              alt="Abhinav Rotti"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </section>
       </AnimatedSection>
