@@ -14,6 +14,7 @@ export default function Leadership() {
       description: 'Collaborated with a cross-functional team to plan and execute logistics for a university-wide event. Optimized processes for resource allocation to ensure smooth operational flow.',
       tags: ['Operations', 'Logistics', 'Team Coordination']
     },
+    //
     {
       role: 'App Development Lead',
       event: 'DBIT',
