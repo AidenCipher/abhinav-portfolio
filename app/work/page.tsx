@@ -80,7 +80,7 @@ export default function Work() {
         <section className="pt-20 mt-20 border-t border-gray-200">
           <div className="space-y-6 max-w-3xl">
             <p className="text-lg text-foreground leading-relaxed">
-              If you wish to see some of the previous work that I have done, please reach out and I would be happy to share.
+              If you wish to understand some of the previous work that I have done, please reach out and I would be happy to share.
             </p>
             <div>
               <Link 

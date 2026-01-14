@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { name, email, subject, message } = body
 
+    // 1. Validate input
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -12,26 +16,27 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email address' },
-        { status: 400 }
-      )
-    }
+    // 2. Send the email using Resend
+    // 'onboarding@resend.dev' is the default testing sender.
+    // Once you verify a domain on Resend, you can change this to 'contact@yourdomain.com'
+    const data = await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>',
+      to: 'abhinav.rotti94@gmail.com', // Your email address
+      replyTo: email, // Hitting "Reply" will reply to the person who filled the form
+      subject: `Portfolio Inquiry: ${subject}`,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Subject: ${subject}
+        
+        Message:
+        ${message}
+      `,
+    })
 
-    // In a production environment, you would send an email here
-    // For example, using Resend, SendGrid, or another email service
-    // This is a placeholder that returns success
-    
-    // Example integration (commented out):
-    // await sendEmail({
-    //   to: process.env.CONTACT_EMAIL,
-    //   from: email,
-    //   subject: `Contact Form: ${subject}`,
-    //   text: `From: ${name} (${email})\n\n${message}`,
-    // })
+    if (data.error) {
+      return NextResponse.json({ error: data.error }, { status: 500 })
+    }
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
