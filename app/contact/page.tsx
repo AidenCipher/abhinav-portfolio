@@ -1,6 +1,5 @@
 'use client'
 
-import ContactForm from '@/components/ContactForm'
 import AnimatedSection from '@/components/AnimatedSection'
 
 export default function Contact() {
@@ -21,49 +20,46 @@ export default function Contact() {
               Connect for strategic discussions, collaboration opportunities, or inquiries.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div>
                 <h2 className="text-xl font-medium text-foreground mb-2">Email</h2>
                 <a
                   href="mailto:abhinav.rotti94@gmail.com"
-                  className="text-foreground underline hover:opacity-70 transition-opacity"
+                  className="text-2xl md:text-3xl font-light text-foreground underline hover:opacity-70 transition-opacity"
                 >
                   abhinav.rotti94@gmail.com
                 </a>
               </div>
 
-              <div>
-                <h2 className="text-xl font-medium text-foreground mb-2">LinkedIn</h2>
-                <a
-                  href="https://linkedin.com/in/abhinavrotti"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground underline hover:opacity-70 transition-opacity"
-                >
-                  linkedin.com/in/abhinavrotti
-                </a>
-              </div>
+              <div className="grid md:grid-cols-2 gap-8 pt-8 border-t border-gray-200">
+                <div>
+                  <h2 className="text-xl font-medium text-foreground mb-2">LinkedIn</h2>
+                  <a
+                    href="https://linkedin.com/in/abhinavrotti"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground underline hover:opacity-70 transition-opacity"
+                  >
+                    linkedin.com/in/abhinavrotti
+                  </a>
+                </div>
 
-              <div>
-                <h2 className="text-xl font-medium text-foreground mb-2">Phone</h2>
-                <a
-                  href="tel:+919916708854"
-                  className="text-foreground underline hover:opacity-70 transition-opacity"
-                >
-                  +91 9916708854
-                </a>
-              </div>
+                <div>
+                  <h2 className="text-xl font-medium text-foreground mb-2">Phone</h2>
+                  <a
+                    href="tel:+919916708854"
+                    className="text-foreground underline hover:opacity-70 transition-opacity"
+                  >
+                    +91 9916708854
+                  </a>
+                </div>
 
-              <div>
-                <h2 className="text-xl font-medium text-foreground mb-2">Location</h2>
-                <p className="text-foreground">Bengaluru, India</p>
+                <div>
+                  <h2 className="text-xl font-medium text-foreground mb-2">Location</h2>
+                  <p className="text-foreground">Bengaluru, India</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="pt-12 border-t border-gray-200">
-            <h2 className="text-2xl font-light text-foreground mb-8">Send a message</h2>
-            <ContactForm />
           </div>
         </section>
       </AnimatedSection>
