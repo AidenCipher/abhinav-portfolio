@@ -4,6 +4,7 @@ import Image from 'next/image'
 import profilePic from './profile.jpeg' // Ensure this matches your file path/name
 import AnimatedSection from '@/components/AnimatedSection'
 import ServiceCard from '@/components/ServiceCard' // <--- Import the new component
+import StaggeredText from '@/components/StaggeredText'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -20,12 +21,15 @@ export default function Home() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-tight text-foreground">
               Hi, I'm Abhinav
             </h1>
-            <div className="space-y-4 text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-tight">
-              <h2 className="font-light">I am here to help your business</h2>
-              <h2 className="font-light">increase operational efficiency</h2>
-              <h2 className="font-light">deliver strategic outcomes</h2>
-              <h2 className="font-light">optimize complex systems</h2>
-            </div>
+            <StaggeredText 
+              className="space-y-4 text-2xl md:text-3xl lg:text-4xl font-light text-foreground leading-tight"
+              lines={[
+                "I am here to help your business",
+                "increase operational efficiency",
+                "deliver strategic outcomes",
+                "optimize complex systems"
+              ]}
+            />
           </div>
 
           <div className="relative w-full aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
