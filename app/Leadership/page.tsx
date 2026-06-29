@@ -1,3 +1,4 @@
+// app/Leadership/page.tsx
 import type { Metadata } from 'next'
 import AnimatedSection from '@/components/AnimatedSection'
 
@@ -9,12 +10,11 @@ export const metadata: Metadata = {
 export default function Leadership() {
   const initiatives = [
     {
-      role: 'Logistics & Operations Committee',
-      event: 'USHUS 2025 Management Fest',
-      description: 'Collaborated with a cross-functional team to plan and execute logistics for a university-wide event. Optimized processes for resource allocation to ensure smooth operational flow.',
-      tags: ['Operations', 'Logistics', 'Team Coordination']
+      role: 'Head Point of Contact (POC)',
+      event: 'USHUS 2026 Management Fest',
+      description: 'Leading the core execution for Christ University\'s premier management fest. Overseeing end-to-end planning, strategic operations, and cross-functional team coordination to ensure a seamless event at scale.',
+      tags: ['Operations Strategy', 'Event Management', 'Team Leadership']
     },
-    //
     {
       role: 'App Development Lead',
       event: 'DBIT',
@@ -51,7 +51,7 @@ export default function Leadership() {
       <section className="grid gap-12 md:grid-cols-2">
         {initiatives.map((item, index) => (
           <AnimatedSection key={index} delay={index * 0.1}>
-            <div className="h-full border-t border-gray-200 pt-8 flex flex-col justify-between group hover:bg-gray-50 transition-colors rounded-2xl p-6 -ml-6">
+            <div className="h-full border-t border-gray-200 pt-8 flex flex-col justify-between group hover:bg-gray-50/50 transition-colors rounded-2xl p-6 -ml-6">
               <div className="space-y-4">
                 <div>
                   <h2 className="text-2xl font-medium text-foreground group-hover:text-gray-600 transition-colors">
@@ -63,12 +63,12 @@ export default function Leadership() {
                   {item.description}
                 </p>
               </div>
-              
+
               <div className="flex flex-wrap gap-2 mt-8">
                 {item.tags.map((tag, tagIndex) => (
-                  <span 
+                  <span
                     key={tagIndex}
-                    className="text-xs uppercase tracking-wider text-accent border border-gray-200 px-3 py-1 rounded-full"
+                    className="text-xs uppercase tracking-wider text-accent border border-gray-200 px-3 py-1 rounded-full bg-white/50"
                   >
                     {tag}
                   </span>

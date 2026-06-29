@@ -1,3 +1,4 @@
+// lib/work.ts
 export interface Project {
   title: string
   description: string
@@ -13,6 +14,19 @@ export interface WorkExperience {
 }
 
 export const workExperience: WorkExperience[] = [
+  {
+    company: 'BNY (Bank of New York)',
+    role: 'Summer Intern - IT Operations Optimization',
+    period: 'Summer 2026',
+    description: 'Worked with the KYC MRA QC Team in Chennai focusing on IT Operations Optimisation. Secured a Pre-Placement Offer (PPO) for the Trainee Analyst Programme, 2027.',
+    projects: [
+      {
+        title: 'KYC MRA QC Process Optimization',
+        description: 'Analyzed and streamlined quality control workflows and IT operations for the Know Your Customer (KYC) process.',
+        outcome: 'Improved operational efficiency and successfully secured a Trainee Analyst PPO for 2027.',
+      },
+    ],
+  },
   {
     company: 'Centilytics Pvt. Ltd.',
     role: 'Associate Project Manager',

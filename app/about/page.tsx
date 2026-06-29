@@ -1,3 +1,4 @@
+// app/about/page.tsx
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import AnimatedSection from '@/components/AnimatedSection'
@@ -25,13 +26,13 @@ export default function About() {
             <p>
               I operate at the intersection of <b>technology and strategy</b>. With a background in Information Science and hands-on experience in project management, I don't just manage tasks—I engineer outcomes.
             </p>
-            
+
             <p>
-              My philosophy is built on <b>&quot;Quiet Leverage&quot;</b>—the belief that significant impact comes from identifying and removing specific bottlenecks, not just adding more noise. At Centilytics, this meant optimizing CI/CD pipelines and rationalizing service portfolios to create systematic improvements that compounded over time.
+              My philosophy is built on <b>&quot;Quiet Leverage&quot;</b>—the belief that significant impact comes from identifying and removing specific bottlenecks, not just adding more noise. Whether it's optimizing CI/CD pipelines at Centilytics or streamlining IT operations for the KYC MRA QC team at BNY, my goal is to create systematic improvements that compound over time.
             </p>
-            
+
             <p>
-              Currently, I am pursuing an MBA in Lean Operations and Systems, at Christ University to deepen my understanding of organizational dynamics. Whether leading logistics for university fests or managing cross-functional technical teams, my focus remains the same: clarity, consistency, and execution.
+              Currently, I am pursuing an MBA in Lean Operations and Systems at Christ University to deepen my understanding of organizational dynamics. From leading logistics and acting as Head POC for university fests to managing cross-functional technical teams, my focus remains the same: clarity, consistency, and execution.
             </p>
           </div>
 
@@ -43,7 +44,7 @@ export default function About() {
                 <h3 className="font-medium text-foreground">Core Competencies</h3>
                 <ul className="text-accent space-y-1">
                   <li>Project Management (Google Certified)</li>
-                  <li>Lean Six Sigma (Green Belt)</li>
+                  <li>Lean Six Sigma Green & Black Belt (AIGPE)</li>
                   <li>Operations Strategy</li>
                   <li>Cross-Functional Leadership</li>
                 </ul>
@@ -51,10 +52,10 @@ export default function About() {
               <div className="space-y-2">
                 <h3 className="font-medium text-foreground">Technical Context</h3>
                 <ul className="text-accent space-y-1">
+                  <li>Trainee Analyst (PPO 2027) - BNY</li>
                   <li>AWS Cloud Practitioner</li>
                   <li>Information Science Engineering</li>
                   <li>Data Lifecycle Management</li>
-                  <li>Process Optimization</li>
                 </ul>
               </div>
             </div>
@@ -66,7 +67,7 @@ export default function About() {
         <section className="pt-20 mt-20 border-t border-gray-200">
           <div className="space-y-6 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-light text-foreground">Why engage a consultant?</h2>
-            
+
             <div className="space-y-8 mt-8">
               <div className="flex items-start gap-4">
                 <span className="text-4xl font-light text-accent">01</span>
@@ -95,11 +96,11 @@ export default function About() {
       <AnimatedSection delay={0.5}>
         <section className="pt-20 mt-20 border-t border-gray-200">
           <p className="text-lg text-foreground leading-relaxed max-w-3xl">
-            No need to get a full-time specialist on board—hire only when you need one. 
+            No need to get a full-time specialist on board—hire only when you need one.
           </p>
           <div className="mt-8">
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="text-foreground underline hover:opacity-70 transition-opacity text-lg"
             >
               Say hello

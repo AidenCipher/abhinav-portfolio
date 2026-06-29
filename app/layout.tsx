@@ -1,7 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import DynamicBackground from '@/components/DynamicBackground'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
@@ -30,10 +32,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+      <body className="relative min-h-screen">
+        <DynamicBackground />
+        <div className="relative z-10">
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   )
