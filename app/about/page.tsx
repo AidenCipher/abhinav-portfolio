@@ -52,7 +52,6 @@ export default function About() {
               <div className="space-y-2">
                 <h3 className="font-medium text-foreground">Technical Context</h3>
                 <ul className="text-accent space-y-1">
-                  <li>Trainee Analyst (PPO 2027) - BNY</li>
                   <li>AWS Cloud Practitioner</li>
                   <li>Information Science Engineering</li>
                   <li>Data Lifecycle Management</li>
