@@ -14,11 +14,11 @@ export default function DynamicBackground() {
 
         // --- Engine Configuration ---
         const PARTICLE_COUNT = 165 // Increased by 10%
-        const INTERACTION_RADIUS = 250 // Cursor attraction distance
-        const TARGET_RADIUS = 80 // Circle radius around cursor
-        const GRAVITY = 0.8 // Pull strength
-        const ORBIT_SPEED = 2.5 // Speed of revolution
-        const MAX_SPEED = 4
+        const INTERACTION_RADIUS = 150 // Cursor attraction distance
+        const TARGET_RADIUS = 2 // Circle radius around cursor
+        const GRAVITY = 0.2 // Pull strength
+        const ORBIT_SPEED = 0.5 // Speed of revolution
+        const MAX_SPEED = 1
         const BASE_SPEED = 0.5
         const PARTICLE_COLORS = [
             'rgba(239, 68, 68, 0.6)',   // Red
@@ -41,8 +41,6 @@ export default function DynamicBackground() {
         class Particle {
             x: number
             y: number
-            originX: number
-            originY: number
             vx: number
             vy: number
             baseVx: number
@@ -53,8 +51,6 @@ export default function DynamicBackground() {
             constructor() {
                 this.x = Math.random() * canvas.width
                 this.y = Math.random() * canvas.height
-                this.originX = this.x
-                this.originY = this.y
                 this.vx = (Math.random() - 0.5) * BASE_SPEED
                 this.vy = (Math.random() - 0.5) * BASE_SPEED
                 this.baseVx = this.vx
@@ -64,79 +60,53 @@ export default function DynamicBackground() {
             }
 
             update() {
-                // Update the "phantom" original position
-                this.originX += this.baseVx
-                this.originY += this.baseVy
-
-                // Screen bounds collision for the original position
-                if (this.originX <= 0 || this.originX >= canvas.width) {
-                    this.baseVx *= -1
-                    this.originX = Math.max(0, Math.min(this.originX, canvas.width))
-                }
-                if (this.originY <= 0 || this.originY >= canvas.height) {
-                    this.baseVy *= -1
-                    this.originY = Math.max(0, Math.min(this.originY, canvas.height))
-                }
-
-                // Check distance from cursor to original position
-                const dxMouse = mouse.x - this.originX
-                const dyMouse = mouse.y - this.originY
-                const distanceToMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse)
-
-                if (distanceToMouse < INTERACTION_RADIUS) {
-                    // Pulled towards cursor
-                    const dx = mouse.x - this.x
-                    const dy = mouse.y - this.y
-                    const distance = Math.sqrt(dx * dx + dy * dy)
-
-                    if (distance > 0) {
-                        const nx = dx / distance
-                        const ny = dy / distance
-                        
-                        // Force to pull/push particles to TARGET_RADIUS
-                        const distanceError = distance - TARGET_RADIUS
-                        const radialForce = distanceError * 0.05
-                        
-                        this.vx += nx * radialForce
-                        this.vy += ny * radialForce
-
-                        // Tangential force for revolution
-                        const orbitForceFactor = Math.max(0, 1 - Math.abs(distanceError) / INTERACTION_RADIUS)
-                        this.vx += -ny * ORBIT_SPEED * orbitForceFactor
-                        this.vy += nx * ORBIT_SPEED * orbitForceFactor
-                        
-                        // Limit orbit speed slightly when captured
-                        const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy)
-                        if (currentSpeed > MAX_SPEED * 2) {
-                            this.vx = (this.vx / currentSpeed) * MAX_SPEED * 2
-                            this.vy = (this.vy / currentSpeed) * MAX_SPEED * 2
-                        }
-                    }
-                } else {
-                    // Return to original position
-                    const dxOrigin = this.originX - this.x
-                    const dyOrigin = this.originY - this.y
-                    const distanceToOrigin = Math.sqrt(dxOrigin * dxOrigin + dyOrigin * dyOrigin)
-
-                    if (distanceToOrigin > 0.5) {
-                        // Spring back to origin
-                        this.vx += (dxOrigin * 0.05)
-                        this.vy += (dyOrigin * 0.05)
-                        // Add friction so they don't oscillate forever
-                        this.vx *= 0.92
-                        this.vy *= 0.92
-                    } else {
-                        // Once close enough, perfectly match original position and movement
-                        this.x = this.originX
-                        this.y = this.originY
-                        this.vx = this.baseVx
-                        this.vy = this.baseVy
-                    }
-                }
-
-                // Apply velocity to actual position
+                // Apply velocity
                 this.x += this.vx
                 this.y += this.vy
+
+                // Screen bounds collision
+                if (this.x <= 0 || this.x >= canvas.width) {
+                    this.vx *= -1
+                    this.baseVx *= -1
+                }
+                if (this.y <= 0 || this.y >= canvas.height) {
+                    this.vy *= -1
+                    this.baseVy *= -1
+                }
+
+                // Interaction Logic
+                const dx = mouse.x - this.x
+                const dy = mouse.y - this.y
+                const distance = Math.sqrt(dx * dx + dy * dy)
+
+                if (distance < INTERACTION_RADIUS) {
+                    const nx = dx / distance
+                    const ny = dy / distance
+
+                    // Force to pull/push particles to TARGET_RADIUS
+                    const distanceError = distance - TARGET_RADIUS
+                    const radialForce = distanceError * 0.05
+
+                    this.vx += nx * radialForce
+                    this.vy += ny * radialForce
+
+                    // Tangential force for revolution
+                    // The force strength increases as it gets closer to TARGET_RADIUS to form a stable circle
+                    const orbitForceFactor = Math.max(0, 1 - Math.abs(distanceError) / INTERACTION_RADIUS)
+                    this.vx += -ny * ORBIT_SPEED * orbitForceFactor
+                    this.vy += nx * ORBIT_SPEED * orbitForceFactor
+                } else {
+                    // Friction: Return to base speed over time when outside interaction radius
+                    this.vx = this.vx * 0.95 + this.baseVx * 0.05
+                    this.vy = this.vy * 0.95 + this.baseVy * 0.05
+                }
+
+                // Speed limiting
+                const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy)
+                if (currentSpeed > MAX_SPEED && distance >= INTERACTION_RADIUS) {
+                    this.vx = (this.vx / currentSpeed) * MAX_SPEED
+                    this.vy = (this.vy / currentSpeed) * MAX_SPEED
+                }
             }
 
             draw() {
