@@ -1,82 +1,80 @@
 // app/Leadership/page.tsx
 import type { Metadata } from 'next'
-import AnimatedSection from '@/components/AnimatedSection'
+import Link from 'next/link'
+import MaskReveal from '@/components/motion/MaskReveal'
+import SplitText from '@/components/motion/SplitText'
+import { leadership } from '@/lib/profile'
 
 export const metadata: Metadata = {
   title: 'Leadership',
-  description: 'Initiatives, team leadership, and academic projects.',
+  description:
+    'Festival operations, team leadership, and technical mentorship across Christ University and DBIT.',
 }
 
 export default function Leadership() {
-  const initiatives = [
-    {
-      role: 'Head Point of Contact (POC)',
-      event: 'USHUS 2026 Management Fest',
-      description: 'Leading the core execution for Christ University\'s premier management fest. Overseeing end-to-end planning, strategic operations, and cross-functional team coordination to ensure a seamless event at scale.',
-      tags: ['Operations Strategy', 'Event Management', 'Team Leadership']
-    },
-    {
-      role: 'App Development Lead',
-      event: 'DBIT',
-      description: 'Directed a 4-member team in an agile environment to design, build, and deploy workflow automation applications. Successfully reduced administrative workload by 40%.',
-      tags: ['Agile Leadership', 'Product Management', 'Automation']
-    },
-    {
-      role: 'Project Lead (Capstone)',
-      event: 'Google Project Management',
-      description: 'Designed a complete end-to-end project plan including charter, milestones, and stakeholder communication reports. Demonstrated systematic execution abilities in a simulated environment.',
-      tags: ['Strategic Planning', 'Documentation', 'Stakeholder Management']
-    },
-    {
-      role: 'Workshop Organizer',
-      event: 'Technical Education',
-      description: 'Organized and delivered Kotlin & Flutter development workshops for over 50 students. Used strong presentation skills to drive the adoption of new mobile technologies.',
-      tags: ['Public Speaking', 'Mentorship', 'Technical Training']
-    }
-  ]
-
   return (
-    <div className="content-width py-20 md:py-32">
-      <AnimatedSection>
-        <section className="space-y-8 mb-20">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light leading-tight text-foreground">
-            Leadership
-          </h1>
-          <p className="text-lg text-foreground leading-relaxed max-w-3xl">
-            Taking ownership beyond the job description. A collection of initiatives where I led teams, organized events, and drove technical adoption.
-          </p>
-        </section>
-      </AnimatedSection>
+    <div className="content-width py-32 md:py-40">
+      <header className="mb-24">
+        <p className="text-eyebrow uppercase text-muted mb-8">
+          <MaskReveal>(Leadership)</MaskReveal>
+        </p>
+        <h1 className="text-display font-medium">
+          <MaskReveal delay={0.06}>Leadership</MaskReveal>
+        </h1>
+        <p className="text-muted text-lg max-w-2xl mt-8">
+          Ownership beyond the job description — where I led teams, ran events
+          at scale, and drove technical adoption.
+        </p>
+      </header>
 
-      <section className="grid gap-12 md:grid-cols-2">
-        {initiatives.map((item, index) => (
-          <AnimatedSection key={index} delay={index * 0.1}>
-            <div className="h-full border-t border-gray-200 pt-8 flex flex-col justify-between group hover:bg-gray-50/50 transition-colors rounded-2xl p-6 -ml-6">
-              <div className="space-y-4">
-                <div>
-                  <h2 className="text-2xl font-medium text-foreground group-hover:text-gray-600 transition-colors">
-                    {item.role}
-                  </h2>
-                  <p className="text-accent text-sm mt-1">{item.event}</p>
-                </div>
-                <p className="text-foreground leading-relaxed">
-                  {item.description}
+      <section className="grid md:grid-cols-2 gap-x-12 gap-y-4">
+        {leadership.map((item, index) => (
+          <article
+            key={`${item.role}-${item.org}`}
+            className="group border-t border-paper/15 py-8 flex flex-col"
+          >
+            <div className="flex items-baseline gap-4 mb-4">
+              <span className="text-eyebrow text-muted shrink-0">
+                ({String(index + 1).padStart(2, '0')})
+              </span>
+              <div>
+                <h2 className="text-2xl md:text-3xl font-medium tracking-tight transition-colors group-hover:text-signal">
+                  <SplitText text={item.role} />
+                </h2>
+                <p className="text-eyebrow uppercase text-muted mt-2">
+                  {item.org}
                 </p>
               </div>
-
-              <div className="flex flex-wrap gap-2 mt-8">
-                {item.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="text-xs uppercase tracking-wider text-accent border border-gray-200 px-3 py-1 rounded-full bg-white/50"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </div>
-          </AnimatedSection>
+
+            <p className="text-muted leading-relaxed flex-1">
+              {item.description}
+            </p>
+
+            <ul className="flex flex-wrap gap-2 mt-6">
+              {item.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="text-eyebrow uppercase text-muted border border-paper/20 px-3 py-1 rounded-full"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </article>
         ))}
+      </section>
+
+      <section className="border-t border-paper/15 mt-24 pt-16">
+        <h2 className="text-headline font-medium max-w-2xl">
+          <MaskReveal>Building something that needs running?</MaskReveal>
+        </h2>
+        <Link
+          href="/contact"
+          className="inline-block mt-10 text-eyebrow uppercase border border-paper/30 rounded-full px-8 py-4 transition-colors hover:bg-signal hover:border-signal"
+        >
+          Get in touch
+        </Link>
       </section>
     </div>
   )
