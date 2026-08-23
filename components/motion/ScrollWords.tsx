@@ -1,6 +1,12 @@
 'use client'
 
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+  MotionValue,
+} from 'framer-motion'
 import { useRef } from 'react'
 
 /** Statement paragraph whose words brighten one by one as it scrolls through. */
@@ -16,8 +22,15 @@ export default function ScrollWords({
     target: ref,
     offset: ['start 0.85', 'start 0.25'],
   })
+  const reduce = useReducedMotion()
 
   const words = text.split(' ')
+
+  // Unbrightened words sit at 0.15 opacity, which is unreadable on the dark
+  // ground — render the statement at full contrast instead.
+  if (reduce) {
+    return <p className={className}>{text}</p>
+  }
 
   return (
     <p ref={ref} className={`relative flex flex-wrap ${className}`}>

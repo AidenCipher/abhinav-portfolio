@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 
 /**
@@ -20,7 +20,14 @@ export default function SplitText({
 }) {
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.1 })
+  const reduce = useReducedMotion()
   const chars = Array.from(text)
+
+  // Skip the per-character stagger entirely; a screen reader already gets the
+  // whole string from aria-label, and the split adds nothing without motion.
+  if (reduce) {
+    return <span className={className}>{text}</span>
+  }
 
   return (
     <span

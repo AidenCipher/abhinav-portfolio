@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
 
 /** Text slides up from behind a clip mask — the reference's primary reveal. */
@@ -17,6 +17,13 @@ export default function MaskReveal({
 }) {
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.1 })
+  // Framer animates inline transforms in JS, so the global reduced-motion CSS
+  // rule does not reach it — the text has to skip the slide entirely.
+  const reduce = useReducedMotion()
+
+  if (reduce) {
+    return <span className={`block ${className}`}>{children}</span>
+  }
 
   return (
     <span
