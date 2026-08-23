@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import MaskReveal from '@/components/motion/MaskReveal'
 import SplitText from '@/components/motion/SplitText'
@@ -20,14 +21,36 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="content-width min-h-screen flex flex-col justify-end pb-16 pt-40">
-        <p className="text-eyebrow uppercase text-muted mb-8">
-          <MaskReveal>(Project Manager &amp; Operations Strategist)</MaskReveal>
-        </p>
-        <h1 className="text-display font-medium">
-          <MaskReveal>I&rsquo;m Abhinav Rotti,</MaskReveal>
-          <MaskReveal delay={0.08}>I find the leverage points</MaskReveal>
-          <MaskReveal delay={0.16}>in complex operations.</MaskReveal>
-        </h1>
+        {/* Splits at lg, not md: at 768px the text column is only ~374px and
+            the longest headline wraps inside its single-line mask. */}
+        <div className="grid lg:grid-cols-[1.45fr_1fr] gap-10 lg:gap-14 items-end">
+          <div>
+            <p className="text-eyebrow uppercase text-muted mb-8">
+              <MaskReveal>(Project Manager &amp; Operations Strategist)</MaskReveal>
+            </p>
+            {/* Two scales, because the column width changes shape at lg: while
+                stacked the headline can run wide, once split it must clear the
+                portrait. Both are tuned so the longest line never wraps — the
+                masks are sized for one line each. */}
+            <h1 className="text-[clamp(1.65rem,8.2vw,3.25rem)] lg:text-[clamp(2.5rem,4.6vw,4rem)] leading-[0.95] tracking-[-0.04em] font-medium">
+              <MaskReveal>I&rsquo;m Abhinav Rotti,</MaskReveal>
+              <MaskReveal delay={0.08}>I find the leverage points</MaskReveal>
+              <MaskReveal delay={0.16}>in complex operations.</MaskReveal>
+            </h1>
+          </div>
+
+          <div className="relative aspect-[4/5] max-w-sm lg:max-w-none overflow-hidden rounded-2xl">
+            <Image
+              src="/images/abhinav.jpg"
+              alt="Abhinav Rotti"
+              fill
+              sizes="(max-width: 1024px) 24rem, 40vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </div>
+
         <div className="mt-16 flex items-end justify-between border-t border-paper/15 pt-6">
           <span className="text-eyebrow uppercase text-muted">/ 2026 /</span>
           <span className="text-eyebrow uppercase text-muted">Bengaluru, India</span>

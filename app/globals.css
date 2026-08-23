@@ -28,10 +28,17 @@
     overflow: hidden;
   }
 
+  /* Both elements need this. With overflow-x only on body, the value
+     propagates to the viewport instead of clipping, and the marquee tracks
+     leave the page scrollable ~20px sideways on narrow screens. */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   body {
     font-size: 16px;
     line-height: 1.5;
-    overflow-x: hidden;
   }
 
   h1,
