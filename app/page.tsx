@@ -39,7 +39,9 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="relative aspect-[4/5] max-w-sm lg:max-w-none overflow-hidden rounded-2xl">
+          {/* Matches the image's own 1.214 ratio, so object-cover trims nothing
+              and the crop is exactly what renders. */}
+          <div className="relative aspect-[1.214/1] max-w-sm lg:max-w-none overflow-hidden rounded-2xl">
             <Image
               src="/images/abhinav.jpg"
               alt="Abhinav Rotti"
