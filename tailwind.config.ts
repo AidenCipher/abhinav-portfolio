@@ -12,7 +12,10 @@ const config: Config = {
         ink: '#0D0D0F',
         paper: '#F4F2ED',
         signal: '#2F5BFF',
-        muted: '#6B6B70',
+        // Secondary text. Was #6B6B70, which measured 3.67:1 on ink and failed
+        // WCAG AA. This is 7.9:1 — AAA for body text — and warm-toned to sit in
+        // the same family as paper rather than reading as a cool grey.
+        muted: '#A8A59E',
         background: '#0D0D0F',
         foreground: '#F4F2ED',
       },

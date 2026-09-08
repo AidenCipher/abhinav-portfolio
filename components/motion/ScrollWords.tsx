@@ -56,7 +56,9 @@ function Word({
   progress: MotionValue<number>
   range: [number, number]
 }) {
-  const opacity = useTransform(progress, range, [0.15, 1])
+  // Floor was 0.15, which left un-brightened words effectively unreadable. 0.32
+  // still reads as clearly dimmed against the brightened text but stays legible.
+  const opacity = useTransform(progress, range, [0.32, 1])
   return (
     <span className="mr-[0.28em] mt-[0.12em]">
       <motion.span style={{ opacity }}>{children}</motion.span>
