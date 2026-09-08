@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -44,19 +44,73 @@ function HoverChars({ label }: { label: string }) {
   )
 }
 
+/** Three lines that fold into a cross when the menu opens. */
+function MenuIcon({ open }: { open: boolean }) {
+  const bar = 'absolute left-0 h-[1.5px] w-full bg-current'
+  const ease = [0.16, 1, 0.3, 1] as const
+
+  return (
+    <span className="relative block h-4 w-6" aria-hidden>
+      <motion.span
+        className={bar}
+        initial={false}
+        animate={open ? { top: 7, rotate: 45 } : { top: 0, rotate: 0 }}
+        transition={{ duration: 0.4, ease }}
+      />
+      <motion.span
+        className={bar}
+        style={{ top: 7 }}
+        initial={false}
+        animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+        transition={{ duration: 0.25, ease }}
+      />
+      <motion.span
+        className={bar}
+        initial={false}
+        animate={open ? { top: 7, rotate: -45 } : { top: 14, rotate: 0 }}
+        transition={{ duration: 0.4, ease }}
+      />
+    </span>
+  )
+}
+
 export default function Navigation() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
+  // Close on navigation, so returning to a page never leaves the panel up.
+  useEffect(() => setIsOpen(false), [pathname])
+
+  // Hold the page still behind the overlay, and allow Escape to dismiss it.
+  useEffect(() => {
+    if (!isOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [isOpen])
+
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 mix-blend-difference"
+      className="fixed top-0 left-0 right-0 z-50"
       aria-label="Main navigation"
     >
-      <div className="content-width py-6 flex items-center justify-between">
+      {/* The blend mode is what let the old panel show the page through it, so
+          it is dropped while the overlay is up. */}
+      <div
+        className={`content-width py-6 flex items-center justify-between relative z-50 ${
+          isOpen ? '' : 'mix-blend-difference'
+        }`}
+      >
         <Link
           href="/"
-          className="text-paper relative z-50"
+          className="text-paper"
           onClick={() => setIsOpen(false)}
         >
           <span className="text-lg font-medium tracking-tight">
@@ -86,37 +140,61 @@ export default function Navigation() {
         </ul>
 
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden z-50 p-2 -mr-2 text-paper"
-          aria-label="Toggle menu"
+          onClick={() => setIsOpen((v) => !v)}
+          className="md:hidden -mr-2 grid h-11 w-11 place-items-center text-paper"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
-          <span className="text-eyebrow uppercase">{isOpen ? 'Close' : 'Menu'}</span>
+          <MenuIcon open={isOpen} />
         </button>
       </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: 'auto' }}
-            exit={{ height: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden bg-ink"
+            id="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden fixed inset-0 z-40 bg-ink"
           >
-            <ul className="flex flex-col px-6 py-10 gap-6">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-3xl font-medium text-paper block"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="flex h-full flex-col justify-center gap-2 px-6">
+              {links.map((link, i) => {
+                const isActive = pathname === link.href
+                return (
+                  <li key={link.href} className="overflow-hidden">
+                    <motion.div
+                      initial={{ y: '110%' }}
+                      animate={{ y: 0 }}
+                      exit={{ y: '110%' }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.08 + i * 0.06,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`block py-2 text-5xl font-medium tracking-tight ${
+                          isActive ? 'text-signal' : 'text-paper'
+                        }`}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  </li>
+                )
+              })}
             </ul>
+
+            <div className="absolute inset-x-0 bottom-0 px-6 pb-10 flex justify-between text-eyebrow uppercase text-muted">
+              <span>/ 2026 /</span>
+              <span>Bengaluru, India</span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
