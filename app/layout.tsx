@@ -7,6 +7,7 @@ import SmoothScroll from '@/components/SmoothScroll'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
 import ParticleField from '@/components/ParticleField'
+import DynamicBackground from '@/components/DynamicBackground'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
@@ -36,7 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={satoshi.variable}>
       <body className="relative min-h-screen bg-ink text-paper grain">
+        {/* Lattice sits underneath; the orbiting swarm draws on top of it. */}
         <ParticleField />
+        <DynamicBackground />
         <Preloader />
         <CustomCursor />
         <SmoothScroll>
