@@ -21,8 +21,13 @@ export default function CustomCursor() {
     const move = (e: PointerEvent) => {
       x.set(e.clientX)
       y.set(e.clientY)
-      const el = e.target as HTMLElement | null
-      setHovering(!!el?.closest('a, button, [data-cursor-hover]'))
+      // target is an Element for real pointer events, but can be window or
+      // document for a synthetic one — closest() only exists on Elements.
+      const el = e.target
+      setHovering(
+        el instanceof Element &&
+          !!el.closest('a, button, [data-cursor-hover]')
+      )
     }
 
     window.addEventListener('pointermove', move)

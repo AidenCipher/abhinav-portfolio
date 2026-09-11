@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import SmoothScroll from '@/components/SmoothScroll'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
+import ParticleField from '@/components/ParticleField'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={satoshi.variable}>
       <body className="relative min-h-screen bg-ink text-paper grain">
+        <ParticleField />
         <Preloader />
         <CustomCursor />
         <SmoothScroll>

@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import MaskReveal from '@/components/motion/MaskReveal'
 import SplitText from '@/components/motion/SplitText'
-import Marquee from '@/components/motion/Marquee'
 import ScrollWords from '@/components/motion/ScrollWords'
 import MetricCounter from '@/components/motion/MetricCounter'
 import { metrics } from '@/lib/metrics'
@@ -59,17 +58,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee band */}
-      <div className="bg-signal text-ink py-5 my-20">
-        <Marquee baseVelocity={4}>
-          <span className="text-headline font-medium px-6 uppercase">
-            Let&rsquo;s work together <span className="opacity-50">✳</span>
-          </span>
-        </Marquee>
-      </div>
-
       {/* Selected work */}
-      <section className="content-width py-24">
+      <section className="content-width py-24 mt-20">
         <div className="flex items-baseline justify-between mb-16">
           <h2 className="text-headline font-medium">
             <SplitText text="Where I've worked" />
